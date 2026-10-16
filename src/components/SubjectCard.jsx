@@ -29,10 +29,11 @@ export default function SubjectCard({ subject, required, onMark, onUndo, onUpdat
       </header>
 
       <div className="verdict">
-        <span className="verdict-num" data-testid="verdict-num">{d.headline}</span>
+        {/* key changes with the verdict, so the number re-mounts and plays its pop animation */}
+        <span key={`${v.status}-${d.headline}`} className="verdict-num" data-testid="verdict-num">{d.headline}</span>
         <span className="verdict-caption">{CAPTION[v.status]}</span>
       </div>
-      <p className="verdict-line" data-testid="verdict-line">{d.line}</p>
+      <p className="verdict-line" data-testid="verdict-line" aria-live="polite">{d.line}</p>
 
       {pct !== null && (
         <div className="gauge" role="img" aria-label={`${pct.toFixed(1)}% attended, requirement ${required}%`}>

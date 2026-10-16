@@ -41,24 +41,27 @@ Build mode: fast (learner prefers speed; hands-on checkpoints still apply)
 
 ## Hands-on Checkpoints
 
-- [ ] Early usable behavior explored — combined with the final review session (tiny 3-slice build; learner asked to proceed straight through)
-- [ ] Final kick-the-tires exploration and feedback completed
+- [x] Early usable behavior explored — combined with the final review session (tiny 3-slice build; learner asked to proceed straight through)
+- [x] Final kick-the-tires exploration and feedback completed — learner tried the live demo: "everything is good"; asked for any remaining improvements
 
 ## Final Review
 
-- [ ] Final review complete — feedback resolved and learner confirms ready to ship
+- [x] Verdict number animates ("pops") when it changes — makes the one-tap update visible; respects reduced-motion. Verified: animationName = pop after Absent.
+- [x] Verdict line announced to screen readers (`aria-live="polite"`). Verified in headless browser.
+- [x] Free live link: GitHub Actions workflow deploys `dist/` to GitHub Pages on push (tests must pass first). Verified: build uses relative asset paths for the Pages sub-path.
+- [x] Final review complete — feedback resolved and learner confirms ready to ship
 
 ## Code Tour and App Map
 
-- [ ] Learning activity complete — guided route, focused alternative, prior practice connected, or brief recap
-- [ ] Optional edit and transfer reflection addressed — offered/declined/already covered/not applicable as appropriate
-- [ ] `devpost/app-map.html` generated from finished code, checked, and shown, including a project-grounded practice to reuse
+- [x] Learning activity complete — guided route, focused alternative, prior practice connected, or brief recap
+- [x] Optional edit and transfer reflection addressed — offered/declined/already covered/not applicable as appropriate
+- [x] `devpost/app-map.html` generated from finished code, checked, and shown, including a project-grounded practice to reuse
 
-Activity and evidence:
-Route and stops:
-Edit outcome:
-Reflection:
-Activity mode:
+Activity and evidence: Brief evidence-based recap (learner chose to go straight to shipping). Connection: PRD verdict examples (`prd.md > The Verdict`) became `src/attendance.test.js` plus a brute-force simulation, run before any UI depended on the math.
+Route and stops: Reference route only, not toured live: `SubjectCard.jsx` (btn-absent) → `useSubjects.js` (mark) → `attendance.js` (verdict/skippable).
+Edit outcome: Not applicable (no hands-on edit).
+Reflection: Transfer question offered when the map was shown.
+Activity mode: Recap with static reference map (checked headless, scripts disabled, phone width, dark theme).
 
 ## Revisions
 

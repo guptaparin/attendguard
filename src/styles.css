@@ -95,8 +95,10 @@ button.req:hover { border-color: var(--accent); }
 .verdict { display: flex; align-items: baseline; gap: 10px; margin-top: 10px; }
 .verdict-num {
   font-family: var(--display); font-weight: 700; font-size: 56px; line-height: 1; color: var(--status);
-  letter-spacing: -0.03em; font-variant-numeric: tabular-nums; transition: transform 0.18s ease;
+  letter-spacing: -0.03em; font-variant-numeric: tabular-nums;
+  animation: pop 0.32s cubic-bezier(.2,1.6,.4,1);
 }
+@keyframes pop { from { transform: scale(0.72); opacity: 0.4; } to { transform: scale(1); opacity: 1; } }
 .status-empty .verdict-num { color: var(--muted); }
 .verdict-caption { color: var(--muted); font-size: 14px; }
 .verdict-line { margin: 6px 0 12px; font-weight: 500; }
@@ -152,5 +154,5 @@ button.req:hover { border-color: var(--accent); }
 .foot { text-align: center; color: var(--muted); font-size: 12px; margin-top: 24px; }
 
 @media (prefers-reduced-motion: reduce) {
-  * { transition: none !important; }
+  * { transition: none !important; animation: none !important; }
 }

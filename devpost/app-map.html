@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AttendGuard App Map</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --panel: #ffffff; --text: #16191d; --muted: #5b6470; --line: #d9dde3;
+    --safe: #13894a; --danger: #c7353a; --accent: #2f5fd0; --code: #eef1f5;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0d0f12; --panel: #171a20; --text: #e8eaed; --muted: #9aa3ad; --line: #2a2f38;
+      --safe: #3ddc84; --danger: #ff5a5f; --accent: #8ab4ff; --code: #1f232b; color-scheme: dark; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.55 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 56px; }
+  h1 { font-size: 30px; line-height: 1.15; margin: 0 0 6px; letter-spacing: -0.02em; text-wrap: balance; }
+  h1 span { color: var(--safe); }
+  h2 { font-size: 20px; margin: 36px 0 10px; text-wrap: balance; }
+  p, li { max-width: 65ch; }
+  .lede { color: var(--muted); margin: 0; }
+  .meta { color: var(--muted); font-size: 13px; margin-top: 10px; }
+  code { font: 14px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: var(--code);
+    padding: 1px 6px; border-radius: 5px; }
+  .pieces { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; padding: 0; list-style: none; }
+  .pieces li { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px; min-width: 0; }
+  .pieces b { display: block; margin-bottom: 4px; }
+  .diagram { overflow-x: auto; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px; }
+  .diagram svg { display: block; min-width: 640px; width: 100%; height: auto; }
+  .diagram text { fill: var(--text); font: 13px ui-sans-serif, system-ui, sans-serif; }
+  .diagram .sub { fill: var(--muted); font-size: 11.5px; }
+  .diagram rect { fill: var(--bg); stroke: var(--line); }
+  .diagram .hot { stroke: var(--accent); }
+  .diagram line, .diagram path { stroke: var(--muted); fill: none; }
+  .diagram .arrow { fill: var(--muted); stroke: none; }
+  ol.route { padding-left: 22px; }
+  ol.route li { margin-bottom: 14px; }
+  details { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; margin-top: 6px; }
+  summary { cursor: pointer; color: var(--accent); font-size: 14px; }
+  summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  pre { overflow-x: auto; background: var(--code); border-radius: 8px; padding: 10px 12px; margin: 8px 0 0;
+    font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  table { border-collapse: collapse; width: 100%; }
+  .table-wrap { overflow-x: auto; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 13px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+  .note { background: var(--panel); border-left: 4px solid var(--safe); border-radius: 8px; padding: 12px 16px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Attend<span>Guard</span> App Map</h1>
+  <p class="lede">A take-home guide to how the app is put together: what happens when you tap a button, and where to start if you want to change something.</p>
+  <p class="meta">Snapshot of the code at the final-review commit on branch <code>main</code>. The code may drift from this map as the project changes.</p>
+
+  <h2>The three pieces</h2>
+  <ul class="pieces">
+    <li><b>The calculator</b><code>src/attendance.js</code><br>Plain functions that turn held, attended, and the required % into a verdict. No UI, so it's easy to test.</li>
+    <li><b>The state + save slot</b><code>src/useSubjects.js</code><br>Holds every subject and the required %, and saves them to the browser's <code>localStorage</code> after each change.</li>
+    <li><b>The screen</b><code>src/App.jsx</code> + <code>src/components/</code><br>React components that draw the header, summary, cards, and form.</li>
+  </ul>
+
+  <h2>One action, end to end: tapping Absent</h2>
+  <div class="diagram" role="img" aria-label="Tapping Absent: SubjectCard button calls mark in useSubjects, which updates state and saves to localStorage; React re-renders SubjectCard, which calls verdict in attendance.js to show the new number.">
+    <svg viewBox="0 0 680 230" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="arrow" d="M0 0L10 5L0 10z"/></marker></defs>
+      <rect class="hot" x="10" y="20" width="190" height="64" rx="10"/>
+      <text x="24" y="46">✕ Absent button</text>
+      <text class="sub" x="24" y="66">SubjectCard.jsx · onMark(false)</text>
+      <rect x="250" y="20" width="190" height="64" rx="10"/>
+      <text x="264" y="46">mark(id, false)</text>
+      <text class="sub" x="264" y="66">useSubjects.js · held + 1</text>
+      <rect x="490" y="20" width="180" height="64" rx="10"/>
+      <text x="504" y="46">localStorage</text>
+      <text class="sub" x="504" y="66">key "attendguard:v1"</text>
+      <rect x="250" y="140" width="190" height="64" rx="10"/>
+      <text x="264" y="166">verdict(41, 36, 75)</text>
+      <text class="sub" x="264" y="186">attendance.js → skip 7</text>
+      <rect class="hot" x="10" y="140" width="190" height="64" rx="10"/>
+      <text x="24" y="166">Card shows "7"</text>
+      <text class="sub" x="24" y="186">number pops, line announced</text>
+      <line x1="200" y1="52" x2="248" y2="52" marker-end="url(#a)"/>
+      <line x1="440" y1="52" x2="488" y2="52" marker-end="url(#a)"/>
+      <path d="M345 84 V138" marker-end="url(#a)"/>
+      <text class="sub" x="354" y="116">React re-renders</text>
+      <line x1="250" y1="172" x2="202" y2="172" marker-end="url(#a)"/>
+    </svg>
+  </div>
+
+  <h2>Code route: 3 stops (reference)</h2>
+  <p>This route wasn't toured live with the learner. Use it as a reference: open the project in your editor and search for each anchor.</p>
+  <ol class="route">
+    <li><b>The button.</b> <code>src/components/SubjectCard.jsx</code>, search <code>btn-absent</code>. The Absent button calls <code>onMark(false)</code>, which <code>App.jsx</code> wires to <code>mark(s.id, present)</code>.
+      <details><summary>Show the code</summary>
+<pre>&lt;button className="btn btn-absent" onClick={() =&gt; onMark(false)}&gt;✕ Absent&lt;/button&gt;</pre></details></li>
+    <li><b>The update and the save.</b> <code>src/useSubjects.js</code>, search <code>mark: (id, present)</code>. It adds 1 to held (and to attended for Present), remembers the old counts in <code>last</code> for Undo, and the <code>useEffect</code> below writes everything to <code>localStorage</code>.
+      <details><summary>Show the code</summary>
+<pre>mark: (id, present) =&gt;
+  patch(id, (x) =&gt; ({
+    ...x,
+    held: x.held + 1,
+    attended: x.attended + (present ? 1 : 0),
+    last: { held: x.held, attended: x.attended, present },
+  })),</pre></details></li>
+    <li><b>The math.</b> <code>src/attendance.js</code>, search <code>export function verdict</code>. With held 41, attended 36, and 75%, <code>skippable</code> gives floor((3600 − 3075) / 75) = 7, so the card shows 7.
+      <details><summary>Show the code</summary>
+<pre>export function skippable(held, attended, required) {
+  return Math.floor((100 * attended - required * held) / required);
+}</pre></details></li>
+  </ol>
+
+  <h2>To change this, start here</h2>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>You want to change…</th><th>Start in</th></tr></thead>
+    <tbody>
+      <tr><td>The verdict wording ("You can skip 8 more classes.")</td><td><code>src/attendance.js</code> → <code>describe</code></td></tr>
+      <tr><td>When a subject counts as "On the edge"</td><td><code>src/attendance.js</code> → <code>verdict</code> (<code>count &gt;= 2</code>)</td></tr>
+      <tr><td>The default required % (75)</td><td><code>src/useSubjects.js</code> → <code>EMPTY</code></td></tr>
+      <tr><td>Colors, fonts, spacing</td><td><code>src/styles.css</code> → the <code>:root</code> tokens</td></tr>
+      <tr><td>Form validation messages</td><td><code>src/components/SubjectForm.jsx</code> → <code>validate</code></td></tr>
+      <tr><td>The welcome text on first use</td><td><code>src/App.jsx</code> → <code>welcome</code></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>A practice to reuse</h2>
+  <div class="note">
+    <p><b>Write the expected numbers down before writing the code.</b> <code>devpost/prd.md</code> → <i>The Verdict</i> listed concrete cases (36/40 → skip 8, 25/40 → attend 20, 0/0 → no classes yet) before any code existed. Those became <code>src/attendance.test.js</code>, plus a brute-force simulation over every combination up to 60 classes. Because the formula was proven before the UI depended on it, no bug in the app could come from the math.</p>
+    <p>On your next project, put a few concrete input → output examples in the plan for the one part that must be right. Turn them into tests first, then build on top of them.</p>
+  </div>
+
+  <h2>Run it again</h2>
+<pre>npm install
+npm run dev     # open http://localhost:5173
+npm test        # calculator tests</pre>
+</main>
+</body>
+</html>
