@@ -68,3 +68,4 @@ Activity mode: Recap with static reference map (checked headless, scripts disabl
 - Early hands-on checkpoint merged into the final review — the learner chose to build straight through; all three slices were verified mechanically in a headless phone-size browser before the learner's hands-on session.
 - Form inputs overflowed the phone width in slice 1 — fixed with `minmax(0, 1fr)` grid columns and full-width inputs.
 - Summary label shortened from "On the edge" to "Edge" — it wrapped onto two lines at phone width.
+- Pages deploy switched to a pre-built `gh-pages` branch — the GitHub Actions run sat in "Queued" for 16+ minutes waiting for a runner; serving the built `dist/` from a branch needs no runner. The Actions workflow stays in the repo as an alternative.
