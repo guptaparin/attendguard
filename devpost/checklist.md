@@ -29,7 +29,7 @@ Build mode: fast (learner prefers speed; hands-on checkpoints still apply)
   Learner check: Tap Absent a few times and watch the skip count drop, then press Undo.
   Commit: `Add one-tap marking, undo, edit, delete and summary`
 
-- [ ] **3. Everything survives a refresh, and the requirement is adjustable**
+- [x] **3. Everything survives a refresh, and the requirement is adjustable**
   Becomes usable: Data and the required % persist in the browser; changing 75→80 recalculates all verdicts; first-use welcome and storage-unavailable note appear when relevant.
   Why now: Persistence and settings are cheap once the state hook exists, and they complete the demo ("refresh — still there").
   PRD ref: `prd.md > Required Percentage`, `prd.md > States and Boundaries`, `prd.md > The Core Journey` (step 7)
@@ -41,7 +41,7 @@ Build mode: fast (learner prefers speed; hands-on checkpoints still apply)
 
 ## Hands-on Checkpoints
 
-- [ ] Early usable behavior explored — after slice 1 (learner tries the published demo)
+- [ ] Early usable behavior explored — combined with the final review session (tiny 3-slice build; learner asked to proceed straight through)
 - [ ] Final kick-the-tires exploration and feedback completed
 
 ## Final Review
@@ -61,3 +61,7 @@ Reflection:
 Activity mode:
 
 ## Revisions
+
+- Early hands-on checkpoint merged into the final review — the learner chose to build straight through; all three slices were verified mechanically in a headless phone-size browser before the learner's hands-on session.
+- Form inputs overflowed the phone width in slice 1 — fixed with `minmax(0, 1fr)` grid columns and full-width inputs.
+- Summary label shortened from "On the edge" to "Edge" — it wrapped onto two lines at phone width.
