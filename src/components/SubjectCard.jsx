@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { verdict, describe } from '../attendance.js';
+import SubjectForm from './SubjectForm.jsx';
 
 const CAPTION = {
   safe: 'classes you can skip',
@@ -8,7 +10,8 @@ const CAPTION = {
   empty: '',
 };
 
-export default function SubjectCard({ subject, required, children }) {
+export default function SubjectCard({ subject, required, onMark, onUndo, onUpdate, onRemove }) {
+  const [mode, setMode] = useState('view'); // 'view' | 'edit' | 'confirm'
   const v = verdict(subject.held, subject.attended, required);
   const d = describe(v);
   const pct = v.percent;
@@ -37,7 +40,42 @@ export default function SubjectCard({ subject, required, children }) {
           <div className="gauge-line" style={{ left: `${required}%` }} />
         </div>
       )}
-      {children}
+
+      {mode === 'edit' ? (
+        <SubjectForm
+          initial={subject}
+          submitLabel="Save changes"
+          autoFocus
+          onSubmit={(next) => { onUpdate(next); setMode('view'); }}
+          onCancel={() => setMode('view')}
+        />
+      ) : (
+        <>
+          <div className="mark">
+            <button className="btn btn-present" onClick={() => onMark(true)}>✓ Present</button>
+            <button className="btn btn-absent" onClick={() => onMark(false)}>✕ Absent</button>
+          </div>
+          {mode === 'confirm' ? (
+            <div className="confirm" role="group" aria-label="Confirm delete">
+              <span>Delete {subject.name}?</span>
+              <span className="spacer" />
+              <button className="btn btn-ghost" onClick={() => setMode('view')}>Keep</button>
+              <button className="btn btn-danger" onClick={onRemove}>Delete</button>
+            </div>
+          ) : (
+            <div className="card-tools">
+              {subject.last && (
+                <button className="link link-undo" onClick={onUndo}>
+                  ↶ Undo {subject.last.present ? 'Present' : 'Absent'}
+                </button>
+              )}
+              <span className="spacer" />
+              <button className="link" onClick={() => setMode('edit')}>Edit</button>
+              <button className="link" onClick={() => setMode('confirm')}>Delete</button>
+            </div>
+          )}
+        </>
+      )}
     </article>
   );
 }

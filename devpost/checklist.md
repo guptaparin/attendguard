@@ -19,7 +19,7 @@ Build mode: fast (learner prefers speed; hands-on checkpoints still apply)
   Learner check: Open the app, add a subject with your real numbers, and see whether the verdict matches what you'd expect.
   Commit: `Add subject form and live attendance verdict`
 
-- [ ] **2. One tap updates the verdict, with undo, edit, and delete**
+- [x] **2. One tap updates the verdict, with undo, edit, and delete**
   Becomes usable: Tapping Present/Absent changes the counts and verdict instantly; Undo reverses a mistaken tap; subjects can be edited or deleted; a summary shows safe/edge/danger counts.
   Why now: This is the core loop the student repeats every day. It builds on the slice 1 card.
   PRD ref: `prd.md > One-Tap Marking`, `prd.md > Subjects`, `prd.md > Summary`
