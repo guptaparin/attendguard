@@ -9,7 +9,7 @@ Build mode: fast (learner prefers speed; hands-on checkpoints still apply)
 
 ## Slices
 
-- [ ] **1. You can add a subject and see its verdict**
+- [x] **1. You can add a subject and see its verdict**
   Becomes usable: A running, styled app where adding "Digital Electronics, 40 held, 36 attended" shows a card that says "You can skip 8" in green. Nothing persists yet.
   Why now: This is the kernel. It proves the calculator and the whole render path first, and the scaffold is included here.
   PRD ref: `prd.md > The Core Journey` (steps 1–3), `prd.md > The Verdict`, `prd.md > Subjects`, `prd.md > Look and Feel`
