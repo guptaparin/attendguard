@@ -1,8 +1,6 @@
-# Free hosting: builds the app and publishes it to GitHub Pages on every push to main.
+# Alternative deploy via GitHub Actions (manual). The live site is served from the gh-pages branch.
 name: Deploy to GitHub Pages
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
