@@ -1,6 +1,6 @@
 # AttendGuard
 
-**Live demo: https://guptaparin.github.io/attendguard/**
+**Live app: https://guptaparin.github.io/attendguard/** · **Demo video: https://youtu.be/skvFK5r2egg**
 
 **Can you skip tomorrow?** AttendGuard tells college students, per subject, exactly how many classes they can skip, or how many they must attend in a row, to stay above their attendance requirement (75% by default).
 

@@ -41,6 +41,11 @@ PRD ref: `prd.md > The Core Journey`.
 - `npm run build` produces `dist/` (static). Deployment chosen (optional, free): GitHub Pages serving the `gh-pages` branch (the built `dist/` plus `.nojekyll`), enabled under Settings → Pages → Source: Deploy from a branch → `gh-pages` / root. Live at https://guptaparin.github.io/attendguard/. `.github/workflows/deploy.yml` is an alternative that builds on GitHub Actions if runners are available.
 - Submission needs a short demo video and a public GitHub repository. Deployment is optional.
 
+## Sharing
+- Public repository: https://github.com/guptaparin/attendguard
+- Demo video: https://youtu.be/skvFK5r2egg
+- Live app (optional): https://guptaparin.github.io/attendguard/
+
 ## Look and Feel
 From `prd.md > Look and Feel`:
 - Background near-black ink (#0d0f12), raised cards (#171a20), and soft text (#e8eaed / #9aa3ad).
