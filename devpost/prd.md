@@ -24,19 +24,19 @@ Source: `scope.md > The Unique Kernel`, `scope.md > Who It's For`.
 Success: the student can decide "skip or attend?" for any subject in under five seconds.
 
 ## Screens and Layout
-One screen, single column, phone-first (it also works centered on desktop):
+One screen. Phone: a single column with the semester status above the subjects. Desktop (960px and up): the register on the left, with a sticky side panel holding the semester status and the Add form.
 - **Header:** the app name, plus the requirement control ("Required: 75%") that can be tapped to change.
 - **Summary strip:** subjects tracked, and how many are safe / on the edge / in danger.
 - **Subject cards:** one per subject, listed in the order added.
 - **Add subject form:** at the bottom of the list (and the main content when there are no subjects).
 
 ## Look and Feel
-(Agent recommendation, accepted via delegation; from `scope.md > Inspiration & Identity`.)
-- A dark, high-contrast "scoreboard" feel. The verdict number is the largest thing on each card.
-- Traffic-light status colors: green for safe, amber for on the edge, red for danger. Each color is always paired with a word, so the meaning never relies on color alone.
-- Bold geometric type for numbers and headings, and a clean sans for body text.
-- Short, friendly student copy ("You can skip 3", "Attend the next 5 in a row"). No jargon.
-- Big tap targets for Present/Absent; usable one-handed.
+(Revised after the official judging guidance; see `checklist.md > Revisions`. The original dark "scoreboard" look read as a generic AI-app default.)
+- An **attendance register**, the object students already know: ruled notebook paper, a red margin line, and ballpoint-blue ink.
+- Each subject is a printed slip. Its status is a **rubber stamp** (SAFE / ON THE LINE / SHORT), and the verdict number is **handwritten**, as if marked in the register.
+- Status colors are stamp inks (green, amber, red). Each is always paired with a word, so the meaning never relies on color alone.
+- Student vernacular: "bunk", "short attendance", "min. attendance".
+- Big tap targets with P/A markers for Present/Absent; usable one-handed.
 
 ## Features and Behavior
 
@@ -74,8 +74,24 @@ For each subject, using the required percentage R:
 - At the top: total subjects, and counts of safe / edge / danger.
   - [ ] With the two example subjects, the summary shows 1 safe and 1 in danger.
 
+### Sample Register
+(Added after the judging guidance: "pre-populate with realistic demo data".)
+- On a first visit the app opens on 5 realistic, clearly labeled sample subjects covering every verdict (safe, on the line, short). A banner says it's a sample, with **Clear sample** and **Add my own**.
+- Clearing removes only sample subjects. Editing a sample subject makes it the user's own.
+- An empty register offers **Load sample register**.
+  - [ ] A first-time visitor sees verdicts without typing anything.
+  - [ ] Clear sample keeps every subject the user added or edited.
+
+### Semester Status
+- The summary names the one thing to do next, e.g. "You're short in Engineering Maths III. Don't bunk it: attend the next 14 classes."
+  - [ ] With the sample register, the advice names Engineering Maths III.
+
+### Bunk Budget Cells
+- Under each verdict, one register cell per class you can still bunk, or per class you must attend (capped at 24, then "+N").
+
 ## States and Boundaries
-- **First use:** no subjects. A welcome line explains the app, with the Add form front and center.
+- **First use:** opens on the labeled sample register (see **Sample Register**), with the one-line promise "Can you skip tomorrow?" at the top.
+- **Empty register:** after clearing, an empty state offers to add a subject or reload the sample.
 - **Invalid input:** attended greater than held, negative numbers, non-whole numbers, or an empty name. An inline message explains the problem and nothing is saved.
 - **What persists:** subjects, counts, the required percentage, and undo history survive a refresh. Data lives only on that device and browser.
 - **Storage unavailable** (private mode or blocked): the app still works for the session and shows a small note that data won't be saved.

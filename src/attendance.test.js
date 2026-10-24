@@ -59,3 +59,14 @@ group('describe — copy', () => {
     expect(describe(verdict(40, 25, 75)).line).toContain('Attend the next 20 in a row');
   });
 });
+
+import { SAMPLE_SUBJECTS } from './sample.js';
+group('sample register — shows every verdict a judge should see', () => {
+  it('covers safe, on-the-line and short at 75%', () => {
+    const statuses = SAMPLE_SUBJECTS.map((s) => verdict(s.held, s.attended, 75).status);
+    expect(statuses).toEqual(['safe', 'safe', 'edge', 'danger', 'safe']);
+  });
+  it('sample counts match the comments in sample.js', () => {
+    expect(SAMPLE_SUBJECTS.map((s) => verdict(s.held, s.attended, 75).count)).toEqual([8, 4, 1, 14, 2]);
+  });
+});

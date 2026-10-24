@@ -82,7 +82,7 @@
       <text class="sub" x="264" y="186">attendance.js → skip 7</text>
       <rect class="hot" x="10" y="140" width="190" height="64" rx="10"/>
       <text x="24" y="166">Card shows "7"</text>
-      <text class="sub" x="24" y="186">number pops, line announced</text>
+      <text class="sub" x="24" y="186">stamp + cells update</text>
       <line x1="200" y1="52" x2="248" y2="52" marker-end="url(#a)"/>
       <line x1="440" y1="52" x2="488" y2="52" marker-end="url(#a)"/>
       <path d="M345 84 V138" marker-end="url(#a)"/>
@@ -121,9 +121,11 @@
       <tr><td>The verdict wording ("You can skip 8 more classes.")</td><td><code>src/attendance.js</code> → <code>describe</code></td></tr>
       <tr><td>When a subject counts as "On the edge"</td><td><code>src/attendance.js</code> → <code>verdict</code> (<code>count &gt;= 2</code>)</td></tr>
       <tr><td>The default required % (75)</td><td><code>src/useSubjects.js</code> → <code>EMPTY</code></td></tr>
-      <tr><td>Colors, fonts, spacing</td><td><code>src/styles.css</code> → the <code>:root</code> tokens</td></tr>
-      <tr><td>Form validation messages</td><td><code>src/components/SubjectForm.jsx</code> → <code>validate</code></td></tr>
-      <tr><td>The welcome text on first use</td><td><code>src/App.jsx</code> → <code>welcome</code></td></tr>
+            <tr><td>Form validation messages</td><td><code>src/components/SubjectForm.jsx</code> → <code>validate</code></td></tr>
+      <tr><td>The intro text at the top</td><td><code>src/App.jsx</code> → <code>intro</code></td></tr>
+      <tr><td>The sample subjects shown on a first visit</td><td><code>src/sample.js</code> → <code>SAMPLE_SUBJECTS</code></td></tr>
+      <tr><td>The "Semester status" advice sentence</td><td><code>src/components/Summary.jsx</code> → <code>advice</code></td></tr>
+      <tr><td>The register look (paper, ink, stamps, fonts)</td><td><code>src/styles.css</code> → <code>:root</code>, <code>.stamp</code>, <code>.verdict-num</code></td></tr>
     </tbody>
   </table>
   </div>

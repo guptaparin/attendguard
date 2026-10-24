@@ -40,12 +40,12 @@ export function describe(v) {
       return { label: 'Safe', headline: String(v.count), line: `You can skip ${v.count} more ${v.count === 1 ? 'class' : 'classes'}.` };
     case 'edge':
       return v.count === 1
-        ? { label: 'On the edge', headline: '1', line: 'You can skip 1 — careful, that’s your last.' }
-        : { label: 'On the edge', headline: '0', line: 'Don’t skip — you’re right at the line.' };
+        ? { label: 'On the line', headline: '1', line: 'You can skip 1. Careful, it’s your last one.' }
+        : { label: 'On the line', headline: '0', line: 'Don’t skip. You’re right at the line.' };
     case 'danger':
-      return { label: 'Danger', headline: String(v.count), line: `Attend the next ${v.count} in a row to get back above the line.` };
+      return { label: 'Short', headline: String(v.count), line: `Attend the next ${v.count} in a row to get back above the line.` };
     case 'unreachable':
-      return { label: 'Unreachable', headline: '×', line: '100% isn’t reachable anymore — you’ve already missed a class.' };
+      return { label: 'Unreachable', headline: '×', line: '100% isn’t reachable anymore. You’ve already missed a class.' };
     default:
       return { label: '', headline: '', line: '' };
   }

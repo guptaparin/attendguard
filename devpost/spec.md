@@ -47,12 +47,12 @@ PRD ref: `prd.md > The Core Journey`.
 - Live app (optional): https://guptaparin.github.io/attendguard/
 
 ## Look and Feel
-From `prd.md > Look and Feel`:
-- Background near-black ink (#0d0f12), raised cards (#171a20), and soft text (#e8eaed / #9aa3ad).
-- Status colors: safe #3ddc84, edge #ffb020, danger #ff5a5f. These are used for a left accent bar, a status pill, and the verdict number. A word label always appears alongside.
-- The verdict number is about 56px Space Grotesk bold; the rest is 15–16px Inter.
-- Spacious single column, max width 480px, 16px gutters, and 44px+ tap targets.
-- Copy is short and second person ("You can skip 8").
+From `prd.md > Look and Feel` (attendance-register identity):
+- Paper #f3f5f0 with blue ruling every 32px and a red margin line (desktop). The ink is #1c2a4a and the cover band uses the same ink.
+- Stamp inks: safe #1e7a4c, on the line #a86a12, short #c0352b. They appear on the stamp, the handwritten number, and the bunk cells.
+- Type: Archivo 800 for headings and stamps, IBM Plex Sans for body, IBM Plex Mono for counts, and Kalam 700 (an Indian Type Foundry handwriting face) for the verdict number. All are **bundled with the app** via @fontsource, so it renders identically offline.
+- Slips have a 1.5px ink border and an offset print shadow. Buttons press down on click and lift on hover. The stamp re-stamps and the number pops when the status changes, and both respect reduced motion.
+- Layout: one column under 960px; register plus a 360px sticky side panel above that; two slip columns from 720px.
 
 ## Components
 
@@ -78,16 +78,24 @@ PRD ref: `prd.md > Subjects`, `prd.md > States and Boundaries`.
 Shows the name, attended/held, percentage, status pill, and the big verdict. Has Present, Absent, Undo (shown when available), Edit, and Delete (with confirm).
 PRD ref: `prd.md > The Verdict`, `prd.md > One-Tap Marking`, `prd.md > Subjects`.
 
-### Header and Summary
+### Header, Summary and Footer
 Shows the app name and an editable required percentage, plus the safe / edge / danger counts.
 PRD ref: `prd.md > Required Percentage`, `prd.md > Summary`.
+
+### Sample register (sample.js)
+`SAMPLE_SUBJECTS` holds 5 realistic subjects covering every verdict. `useSubjects` loads them on a first visit (no saved data) flagged `sample: true`, and provides `loadSample` / `clearSample`. Editing a sample subject sets `sample: false`.
+PRD ref: `prd.md > Sample Register`.
+
+### BunkCells
+One cell per class you can bunk or must attend (capped at 24).
+PRD ref: `prd.md > Bunk Budget Cells`.
 
 ## Data Model
 Saved in `localStorage["attendguard:v1"]`:
 ```json
 { "required": 75,
   "subjects": [ { "id": "abc123", "name": "Digital Electronics", "held": 40, "attended": 36,
-                  "last": { "held": 39, "attended": 35 } } ] }
+                  "last": { "held": 39, "attended": 35 }, "sample": false } ] }
 ```
 `last` holds the counts before the most recent tap (used for undo). It is cleared after an undo or edit. The data persists until the user deletes it or clears their browser data.
 
@@ -103,10 +111,13 @@ attendguard/
 │   ├── attendance.js       # the calculator (pure functions)
 │   ├── attendance.test.js  # Vitest cases from prd.md acceptance criteria
 │   ├── useSubjects.js      # state + localStorage
+│   ├── sample.js           # sample register for first visits
 │   ├── components/
 │   │   ├── Header.jsx
 │   │   ├── Summary.jsx
 │   │   ├── SubjectCard.jsx
+│   │   ├── BunkCells.jsx       # bunk-budget register cells
+│   │   ├── Footer.jsx          # how it's calculated + links
 │   │   └── SubjectForm.jsx
 │   └── styles.css          # palette + layout
 ├── devpost/                # planning docs (profile is git-ignored)
@@ -114,7 +125,7 @@ attendguard/
 ```
 
 ## External Services and Dependencies
-None at runtime besides optional Google Fonts (free, no key). No APIs, keys, or costs.
+None at runtime. Fonts are bundled via @fontsource (https://fontsource.org), so nothing is fetched. No APIs, keys, or costs.
 
 ## Important Failure Modes
 - **localStorage blocked or full** → the app works in memory and shows "Data won't be saved in this browser."

@@ -51,6 +51,15 @@ Build mode: fast (learner prefers speed; hands-on checkpoints still apply)
 - [x] Free live link: GitHub Actions workflow deploys `dist/` to GitHub Pages on push (tests must pass first). Verified: build uses relative asset paths for the Pages sub-path.
 - [x] Final review complete — feedback resolved and learner confirms ready to ship
 
+### Second review: against the official judging guidance (Will It Ship video)
+The learner shared the judges' criteria (Design & Product Experience, Innovation, Presentation) and asked for the project to be revised against them. The audit found:
+- [x] Judges land on an empty form → **sample register on first visit**, labeled, with Clear sample / Add my own. Verified: 5 slips on first load; clear keeps user subjects; edit makes a sample user-owned.
+- [x] Dark neon look matched generic AI-app defaults → **attendance-register redesign** (ruled paper, ink, rubber stamps, handwritten verdicts, bunk cells). Verified at 390/768/1024/1440px with no horizontal scroll.
+- [x] Phone column on desktop → **two-column desktop layout** with a sticky side panel; on phones the summary comes first.
+- [x] Missing small details → **favicon**, **footer** (how it's calculated, source link, credit), and a **semester status sentence** naming what to do next.
+- [x] Fonts depended on Google Fonts → **bundled locally**, so the app is fully offline.
+- [x] Regression: 14 unit tests (2 new for the sample) and 25 headless behavior checks pass, with no page errors.
+
 ## Code Tour and App Map
 
 - [x] Learning activity complete — guided route, focused alternative, prior practice connected, or brief recap
@@ -69,3 +78,7 @@ Activity mode: Recap with static reference map (checked headless, scripts disabl
 - Form inputs overflowed the phone width in slice 1 — fixed with `minmax(0, 1fr)` grid columns and full-width inputs.
 - Summary label shortened from "On the edge" to "Edge" — it wrapped onto two lines at phone width.
 - Pages deploy switched to a pre-built `gh-pages` branch — the GitHub Actions run sat in "Queued" for 16+ minutes waiting for a runner; serving the built `dist/` from a branch needs no runner. The Actions workflow stays in the repo as an alternative.
+- Visual identity replaced (dark scoreboard → attendance register) — the official judging guidance penalizes generic AI-generated looks, and the original palette/fonts/left-accent cards matched those defaults. Product behavior and math are unchanged.
+- First visit now opens on a labeled sample register instead of an empty form — judges said to pre-populate realistic demo data; `scope.md > What "Working" Looks Like` is now visible without typing.
+- Desktop layout added (register + side panel) — judges marked down phone-only interfaces shown on desktop.
+- Fonts bundled with @fontsource instead of Google Fonts — a headless check showed the handwritten verdict falling back to a serif when the font CDN was unreachable.
