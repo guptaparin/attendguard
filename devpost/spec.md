@@ -38,7 +38,7 @@ PRD ref: `prd.md > The Core Journey`.
 - Runs in any modern browser. Requirements: Node 18+ and npm.
 - `npm install` then `npm run dev`, and open the printed URL (http://localhost:5173). Use the browser's device toolbar (phone size) for the demo recording.
 - `npm test` runs the calculator tests.
-- `npm run build` produces `dist/` (static). Deployment chosen (optional, free): GitHub Pages serving the `gh-pages` branch (the built `dist/` plus `.nojekyll`), enabled under Settings → Pages → Source: Deploy from a branch → `gh-pages` / root. Live at https://guptaparin.github.io/attendguard/. `.github/workflows/deploy.yml` is an alternative that builds on GitHub Actions if runners are available.
+- `npm run build` produces `dist/` (static). Deployment chosen (optional, free): GitHub Pages via `.github/workflows/deploy.yml` (Settings → Pages → Source: GitHub Actions). Every push to `main` runs the tests, builds, and publishes `dist/`. Live at https://guptaparin.github.io/attendguard/.
 - Submission needs a short demo video and a public GitHub repository. Deployment is optional.
 
 ## Sharing

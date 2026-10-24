@@ -1,6 +1,8 @@
-# Alternative deploy via GitHub Actions (manual). The live site is served from the gh-pages branch.
+# Deploys the live site: runs the tests, builds, and publishes dist/ to GitHub Pages on every push to main.
 name: Deploy to GitHub Pages
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read

@@ -94,3 +94,4 @@ Activity mode: Recap with static reference map (checked headless, scripts disabl
 - Guided tour added on the sample register — the judges said onboarding should happen inside the app at the moment of use, not as instructions to read first.
 - Functional copy switched from "bunk" to "skip" — judges warned that slang and platform-specific verbs break under translation; "bunk" stays in the tagline as identity only.
 - Validation returns the failing field — a single generic message didn't say which input to fix; duplicates were previously allowed.
+- Deploy path corrected — Pages was still set to "GitHub Actions", so pushes to the `gh-pages` branch never went live and the site stayed on the Oct 16 build; the workflow's push trigger is restored so every push to `main` deploys.
