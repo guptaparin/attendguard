@@ -35,7 +35,7 @@ One screen. Phone: a single column with the semester status above the subjects. 
 - An **attendance register**, the object students already know: ruled notebook paper, a red margin line, and ballpoint-blue ink.
 - Each subject is a printed slip. Its status is a **rubber stamp** (SAFE / ON THE LINE / SHORT), and the verdict number is **handwritten**, as if marked in the register.
 - Status colors are stamp inks (green, amber, red). Each is always paired with a word, so the meaning never relies on color alone.
-- Student vernacular: "bunk", "short attendance", "min. attendance".
+- Student vernacular in the identity ("the bunk math done", "short attendance", "min. attendance"), but **universal words for every action and number** (skip, press, Present/Absent), so the page still reads correctly when browser-translated.
 - Big tap targets with P/A markers for Present/Absent; usable one-handed.
 
 ## Features and Behavior
@@ -82,9 +82,16 @@ For each subject, using the required percentage R:
   - [ ] A first-time visitor sees verdicts without typing anything.
   - [ ] Clear sample keeps every subject the user added or edited.
 
+### Guided Tour
+(Added after the judging guidance: "show, don't tell"; onboarding inside the app, not a list of instructions.)
+- On the sample register, a 3-step note appears next to the control it describes: (1) press **Absent** and watch 8 become 7, (2) **Undo** puts it back, (3) **Clear the sample** and add your own. Each shows "Step N of 3" and has **Skip tour**.
+- It advances only when the user does the action, ends when they clear the sample or add a subject, and is remembered across reloads.
+  - [ ] A first-time visitor learns the core loop without reading instructions first.
+
 ### Semester Status
 - The summary names the one thing to do next, e.g. "You're short in Engineering Maths III. Don't bunk it: attend the next 14 classes."
   - [ ] With the sample register, the advice names Engineering Maths III.
+- Under it, a plain caveat: the result is an estimate from the numbers entered, and the college's official record decides. (Judges praised framing outputs as "signals, not verdicts".)
 
 ### Bunk Budget Cells
 - Under each verdict, one register cell per class you can still bunk, or per class you must attend (capped at 24, then "+N").
@@ -92,7 +99,8 @@ For each subject, using the required percentage R:
 ## States and Boundaries
 - **First use:** opens on the labeled sample register (see **Sample Register**), with the one-line promise "Can you skip tomorrow?" at the top.
 - **Empty register:** after clearing, an empty state offers to add a subject or reload the sample.
-- **Invalid input:** attended greater than held, negative numbers, non-whole numbers, or an empty name. An inline message explains the problem and nothing is saved.
+- **Invalid input:** an empty name or one without letters/numbers, a **duplicate subject name** (ignoring case and spaces), negative, decimal or non-numeric counts, more than 999 classes, or attended greater than held. The message names the exact field, that field is marked invalid and focused, and nothing is saved. Names are always shown as plain text, never run as code.
+- **Regional default:** the home screen states that 75% is the usual Indian minimum and points to where to change it.
 - **What persists:** subjects, counts, the required percentage, and undo history survive a refresh. Data lives only on that device and browser.
 - **Storage unavailable** (private mode or blocked): the app still works for the session and shows a small note that data won't be saved.
 

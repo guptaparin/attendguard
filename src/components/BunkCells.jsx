@@ -1,5 +1,5 @@
 // A row of register cells that makes the verdict countable at a glance:
-// one cell per class you can still bunk (safe/edge), or per class you must attend (short).
+// one cell per class you can still skip (safe/edge), or per class you must attend (short).
 const MAX = 24;
 
 export default function BunkCells({ status, count }) {
@@ -11,8 +11,8 @@ export default function BunkCells({ status, count }) {
     status === 'danger'
       ? `${count} classes you must attend`
       : count === 0
-        ? 'No bunks left'
-        : `${count} bunks left`;
+        ? 'No skips left'
+        : `${count} skips left`;
 
   return (
     <div className={`cells cells-${kind}`} role="img" aria-label={label}>
@@ -22,7 +22,7 @@ export default function BunkCells({ status, count }) {
         Array.from({ length: shown }, (_, i) => <span key={i} className="cell" />)
       )}
       {extra > 0 && <span className="cells-more">+{extra}</span>}
-      <span className="cells-legend">{kind === 'must' ? 'must attend' : count === 0 ? 'no bunks left' : 'bunks left'}</span>
+      <span className="cells-legend">{kind === 'must' ? 'must attend' : count === 0 ? 'no skips left' : 'skips left'}</span>
     </div>
   );
 }

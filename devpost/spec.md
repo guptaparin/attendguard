@@ -71,6 +71,7 @@ Holds `subjects` and `required`. Provides `add`, `update`, `remove`, `mark(id, p
 PRD ref: `prd.md > One-Tap Marking`, `prd.md > Required Percentage`, `prd.md > States and Boundaries`.
 
 ### SubjectForm
+`validate(input, existingNames)` returns `{ field, message }` or null (duplicates, 999 cap, letters-or-digits name, whole numbers). Errors focus the bad field and set `aria-invalid`. Tested in `src/form.test.js`.
 Handles Add and Edit. Validates the input (a name is required; whole numbers ≥ 0; attended ≤ held) and shows inline errors.
 PRD ref: `prd.md > Subjects`, `prd.md > States and Boundaries`.
 
@@ -85,6 +86,10 @@ PRD ref: `prd.md > Required Percentage`, `prd.md > Summary`.
 ### Sample register (sample.js)
 `SAMPLE_SUBJECTS` holds 5 realistic subjects covering every verdict. `useSubjects` loads them on a first visit (no saved data) flagged `sample: true`, and provides `loadSample` / `clearSample`. Editing a sample subject sets `sample: false`.
 PRD ref: `prd.md > Sample Register`.
+
+### TourNote (guided tour)
+`tour` (0–3) is stored with the register. 0 = mark a class (note on the first slip), 1 = undo (note on the slip just marked), 2 = make it yours (note in the sample banner), 3 = done. `advanceTour(n)` only moves forward. Old saves without `tour` load as done.
+PRD ref: `prd.md > Guided Tour`.
 
 ### BunkCells
 One cell per class you can bunk or must attend (capped at 24).
@@ -110,6 +115,7 @@ attendguard/
 │   ├── App.jsx             # layout: header, summary, cards, form
 │   ├── attendance.js       # the calculator (pure functions)
 │   ├── attendance.test.js  # Vitest cases from prd.md acceptance criteria
+│   ├── form.test.js        # validation cases (duplicates, injection-like input, caps)
 │   ├── useSubjects.js      # state + localStorage
 │   ├── sample.js           # sample register for first visits
 │   ├── components/
@@ -118,6 +124,7 @@ attendguard/
 │   │   ├── SubjectCard.jsx
 │   │   ├── BunkCells.jsx       # bunk-budget register cells
 │   │   ├── Footer.jsx          # how it's calculated + links
+│   │   ├── TourNote.jsx        # one step of the guided tour
 │   │   └── SubjectForm.jsx
 │   └── styles.css          # palette + layout
 ├── devpost/                # planning docs (profile is git-ignored)

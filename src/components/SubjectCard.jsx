@@ -4,14 +4,14 @@ import SubjectForm from './SubjectForm.jsx';
 import BunkCells from './BunkCells.jsx';
 
 const CAPTION = {
-  safe: 'classes you can bunk',
-  edge: 'classes you can bunk',
+  safe: 'classes you can skip',
+  edge: 'classes you can skip',
   danger: 'to attend in a row',
   unreachable: 'target not reachable',
   empty: 'no classes marked yet',
 };
 
-export default function SubjectCard({ subject, required, onMark, onUndo, onUpdate, onRemove }) {
+export default function SubjectCard({ subject, required, otherNames = [], tipMark, tipTools, onMark, onUndo, onUpdate, onRemove }) {
   const [mode, setMode] = useState('view'); // 'view' | 'edit' | 'confirm'
   const v = verdict(subject.held, subject.attended, required);
   const d = describe(v);
@@ -41,6 +41,7 @@ export default function SubjectCard({ subject, required, onMark, onUndo, onUpdat
       {mode === 'edit' ? (
         <SubjectForm
           initial={subject}
+          existingNames={otherNames}
           submitLabel="Save changes"
           autoFocus
           onSubmit={(next) => { onUpdate(next); setMode('view'); }}
@@ -48,6 +49,7 @@ export default function SubjectCard({ subject, required, onMark, onUndo, onUpdat
         />
       ) : (
         <>
+          {tipMark}
           <div className="mark">
             <button className="btn btn-present" onClick={() => onMark(true)}>
               <span className="mark-letter" aria-hidden="true">P</span> Present
@@ -64,6 +66,8 @@ export default function SubjectCard({ subject, required, onMark, onUndo, onUpdat
               <button className="btn btn-danger" onClick={onRemove}>Delete</button>
             </div>
           ) : (
+            <>
+            {tipTools}
             <div className="slip-tools">
               {subject.last && (
                 <button className="link link-undo" onClick={onUndo}>
@@ -75,6 +79,7 @@ export default function SubjectCard({ subject, required, onMark, onUndo, onUpdat
               <button className="link" onClick={() => setMode('edit')}>Edit</button>
               <button className="link" onClick={() => setMode('confirm')}>Delete</button>
             </div>
+            </>
           )}
         </>
       )}

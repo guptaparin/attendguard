@@ -60,6 +60,15 @@ The learner shared the judges' criteria (Design & Product Experience, Innovation
 - [x] Fonts depended on Google Fonts → **bundled locally**, so the app is fully offline.
 - [x] Regression: 14 unit tests (2 new for the sample) and 25 headless behavior checks pass, with no page errors.
 
+### Third review: the judges' detailed notes (trust, validation, UX nuance, responsible framing)
+- [x] "Show, don't tell" onboarding → **3-step guided tour** placed next to each control, with step indicator and Skip tour. Verified: advances on the real action, follows the slip that was marked, persists across reload, ends on clear/add.
+- [x] Database hygiene / validation → **duplicate names blocked**, 999-class cap, name must contain a letter or number, field-specific errors with focus + `aria-invalid`. Verified: 10 new unit tests; `<img onerror>` in a name renders as text.
+- [x] Clear, translatable wording → functional copy uses **skip / press / Present / Absent**; "bunk" kept only in the tagline.
+- [x] "Signals, not verdicts" → **estimate caveat** under Semester status and an assumptions note in the footer.
+- [x] Baked-in regional context must be stated → home screen says **75% is the usual Indian minimum** and where to change it.
+- [x] Link previews → Open Graph tags + preview image for sharing on WhatsApp/Discord.
+- [x] Regression: 24 unit tests and 24 headless checks pass (incl. old-format saves, blocked storage, keyboard reachability), no page errors.
+
 ## Code Tour and App Map
 
 - [x] Learning activity complete — guided route, focused alternative, prior practice connected, or brief recap
@@ -82,3 +91,6 @@ Activity mode: Recap with static reference map (checked headless, scripts disabl
 - First visit now opens on a labeled sample register instead of an empty form — judges said to pre-populate realistic demo data; `scope.md > What "Working" Looks Like` is now visible without typing.
 - Desktop layout added (register + side panel) — judges marked down phone-only interfaces shown on desktop.
 - Fonts bundled with @fontsource instead of Google Fonts — a headless check showed the handwritten verdict falling back to a serif when the font CDN was unreachable.
+- Guided tour added on the sample register — the judges said onboarding should happen inside the app at the moment of use, not as instructions to read first.
+- Functional copy switched from "bunk" to "skip" — judges warned that slang and platform-specific verbs break under translation; "bunk" stays in the tagline as identity only.
+- Validation returns the failing field — a single generic message didn't say which input to fix; duplicates were previously allowed.

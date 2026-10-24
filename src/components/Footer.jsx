@@ -6,9 +6,10 @@ export default function Footer({ required }) {
         <summary>How is the number calculated?</summary>
         <div className="howto-body">
           <p>For <i>H</i> classes held, <i>A</i> attended and a minimum of <i>R</i>% (now {required}%):</p>
-          <p className="formula"><span>Classes you can bunk</span><code>⌊ (100·A − R·H) ÷ R ⌋</code></p>
+          <p className="formula"><span>Classes you can skip</span><code>⌊ (100·A − R·H) ÷ R ⌋</code></p>
           <p className="formula"><span>Classes to attend in a row</span><code>⌈ (R·H − 100·A) ÷ (100 − R) ⌉</code></p>
           <p>Example: 38 of 42 at 75% → ⌊(3800 − 3150) ÷ 75⌋ = <b>8</b>. Integer math only, so there are no rounding surprises. Every case up to 60 classes is checked by a test.</p>
+          <p>It assumes every future class counts the same. Medical leave, duty leave or separate lab rules aren’t included, so treat the result as an estimate and confirm with your college portal.</p>
         </div>
       </details>
       <div className="foot-row">

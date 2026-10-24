@@ -11,13 +11,13 @@ export default function Summary({ subjects, required, className = '', testId = '
   if (short.length) {
     const worst = short.slice().sort((a, b) => b.v.count - a.v.count)[0];
     advice = short.length === 1
-      ? <>You’re short in <b>{worst.s.name}</b>. Don’t bunk it: attend the next {worst.v.count || 'all'} classes.</>
+      ? <>You’re short in <b>{worst.s.name}</b>. Don’t skip it: attend the next {worst.v.count || 'all'} classes.</>
       : <>You’re short in {short.length} subjects. Start with <b>{worst.s.name}</b>, it needs the most classes.</>;
   } else if (edge.length) {
-    advice = <><b>{edge[0].s.name}</b> is right on the line. Bunk anything else first.</>;
+    advice = <><b>{edge[0].s.name}</b> is right on the line. Skip anything else first.</>;
   } else if (safe.length) {
     const tightest = safe.slice().sort((a, b) => a.v.count - b.v.count)[0];
-    advice = <>All clear. Your tightest subject is <b>{tightest.s.name}</b>, with {tightest.v.count} bunks left.</>;
+    advice = <>All clear. Your tightest subject is <b>{tightest.s.name}</b>, with {tightest.v.count} skips left.</>;
   } else {
     advice = <>Mark a class to see where you stand.</>;
   }
@@ -31,6 +31,7 @@ export default function Summary({ subjects, required, className = '', testId = '
         <div className="tally-cell short"><b>{short.length}</b><span>Short</span></div>
       </div>
       <p className="advice" data-testid={`${testId}-advice`}>{advice}</p>
+      <p className="caveat">An estimate from the numbers you enter. Your college’s official record decides, so check the portal before a risky skip.</p>
     </section>
   );
 }
